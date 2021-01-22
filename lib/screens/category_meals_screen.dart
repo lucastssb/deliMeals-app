@@ -18,6 +18,7 @@ class CategoryMealsScreen extends StatelessWidget {
         .where((meal) => meal.categories.contains(categoryId))
         .toList();
     return Scaffold(
+      backgroundColor: Theme.of(context).backgroundColor,
       appBar: AppBar(
         title: Text(categoryTitle),
       ),

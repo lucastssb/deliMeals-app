@@ -1,5 +1,6 @@
-import 'package:deliMeals/widgets/main_drawer.dart';
 import 'package:flutter/material.dart';
+
+import 'package:deliMeals/widgets/main_drawer.dart';
 
 class FiltersScreen extends StatefulWidget {
   final Function saveFilters;
@@ -43,23 +44,9 @@ class _FiltersScreenState extends State<FiltersScreen> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      backgroundColor: Theme.of(context).backgroundColor,
       appBar: AppBar(
         title: Text('Your filters'),
-        actions: [
-          IconButton(
-            icon: Icon(Icons.save),
-            onPressed: () {
-              final selectedFilters = {
-                'gluten': _glutenFree,
-                'lactose': _lactoseFree,
-                'vegan': _vegan,
-                'vegetarian': _vegetarian,
-              };
-
-              widget.saveFilters(selectedFilters);
-            },
-          ),
-        ],
       ),
       drawer: MainDrawer(),
       body: Column(
@@ -118,6 +105,28 @@ class _FiltersScreenState extends State<FiltersScreen> {
             ),
           ),
         ],
+      ),
+      floatingActionButton: Builder(
+        builder: (BuildContext context) => FloatingActionButton(
+          child: Icon(Icons.save),
+          backgroundColor: Theme.of(context).accentColor,
+          onPressed: () {
+            final selectedFilters = {
+              'gluten': _glutenFree,
+              'lactose': _lactoseFree,
+              'vegan': _vegan,
+              'vegetarian': _vegetarian,
+            };
+
+            widget.saveFilters(selectedFilters);
+            Scaffold.of(context).showSnackBar(
+              SnackBar(
+                content: Text('Saved'),
+                backgroundColor: Theme.of(context).accentColor,
+              ),
+            );
+          },
+        ),
       ),
     );
   }

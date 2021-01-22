@@ -24,6 +24,7 @@ class _MyAppState extends State<MyApp> {
   };
 
   List<Meal> _availableMeals = DUMMY_MEALS;
+  List<Meal> _favoriteMeals = [];
 
   void _setFilters(Map<String, bool> filterData) {
     setState(() {
@@ -40,13 +41,35 @@ class _MyAppState extends State<MyApp> {
     });
   }
 
+  void _toogleFavorite(String meailId) {
+    final existingIndex =
+        _favoriteMeals.indexWhere((meal) => meal.id == meailId);
+    if (existingIndex >= 0) {
+      setState(() {
+        _favoriteMeals.removeAt(existingIndex);
+      });
+    } else {
+      setState(() {
+        _favoriteMeals.add(
+          DUMMY_MEALS.firstWhere((meal) => meal.id == meailId),
+        );
+      });
+    }
+  }
+
+  bool _isMealFavorite(String id) {
+    return _favoriteMeals.any((meal) => meal.id == id);
+  }
+
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      debugShowCheckedModeBanner: false,
       title: 'DeliMeals',
       theme: ThemeData(
+        backgroundColor: Colors.white,
         primarySwatch: Colors.deepPurple,
-        accentColor: Colors.amber,
+        accentColor: Colors.pinkAccent,
         canvasColor: Color.fromRGBO(255, 254, 229, 1),
         fontFamily: 'Raleway',
         textTheme: ThemeData.light().textTheme.copyWith(
@@ -62,9 +85,10 @@ class _MyAppState extends State<MyApp> {
             )),
       ),
       routes: {
-        '/': (ctx) => TabsScreen(),
+        '/': (ctx) => TabsScreen(_favoriteMeals),
         '/category-meals': (ctx) => CategoryMealsScreen(_availableMeals),
-        '/meal-details': (ctx) => MealDetailScreen(),
+        '/meal-details': (ctx) =>
+            MealDetailScreen(_toogleFavorite, _isMealFavorite),
         '/filters': (ctx) => FiltersScreen(_setFilters, _filters),
       },
     );

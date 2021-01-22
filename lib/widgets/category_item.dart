@@ -1,5 +1,11 @@
 import 'package:flutter/material.dart';
 
+class CategoryItemData {
+  String title;
+  String id;
+  Color color;
+}
+
 class CategoryItem extends StatelessWidget {
   final String id;
   final String title;

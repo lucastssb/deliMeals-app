@@ -1,10 +1,16 @@
 import 'package:flutter/material.dart';
 
-import '../screens/categories_screen.dart';
-import '../screens/favorites_screen.dart';
-import '../widgets/main_drawer.dart';
+import 'package:deliMeals/screens/categories_screen.dart';
+import 'package:deliMeals/screens/favorites_screen.dart';
+import 'package:deliMeals/widgets/main_drawer.dart';
+
+import 'package:deliMeals/models/meal.dart';
 
 class TabsScreen extends StatefulWidget {
+  final List<Meal> favoriteMeals;
+
+  TabsScreen(this.favoriteMeals);
+
   @override
   _TabsScreenState createState() => _TabsScreenState();
 }
@@ -15,6 +21,7 @@ class _TabsScreenState extends State<TabsScreen> {
     return DefaultTabController(
       length: 2,
       child: Scaffold(
+        backgroundColor: Theme.of(context).backgroundColor,
         drawer: MainDrawer(),
         appBar: AppBar(
           title: Text('Meals'),
@@ -34,7 +41,7 @@ class _TabsScreenState extends State<TabsScreen> {
         body: TabBarView(
           children: [
             CategoriesScreen(),
-            FavoritesScreen(),
+            FavoritesScreen(widget.favoriteMeals),
           ],
         ),
       ),
