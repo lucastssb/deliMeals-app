@@ -18,7 +18,7 @@
 
 ## 💻 Project
 
-This app is just a project i made to help me to learn about some flutter's features and widgets like CustomScrollView, SliverAppBar and others. 
+This app is just a project i've made to help me to learn about some flutter's features and widgets like CustomScrollView, SliverAppBar and others. 
 
 
 ## :rocket: Technologies
